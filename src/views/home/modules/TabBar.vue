@@ -1,35 +1,42 @@
 <script setup lang="ts">
-import { ref, onUpdated } from 'vue'
+import { ref, onUpdated, onMounted } from 'vue'
 import { ChevronBackOutline, ChevronForwardOutline } from '@vicons/ionicons5'
 import { useTabBarStore } from '@/stores/TabBar'
 import { useSideMenuStore } from '@/stores/SideMenu'
 
+// pinia 数据
 const tabBarStore = useTabBarStore();
 const sideMenuStore = useSideMenuStore();
 
-const scrollFlag = ref(false)
-
-const tabConent = ref<HTMLInputElement | null>(null)
+// 常量
+let scrollLeftRefX = 0
+let scrollRightRefX = 0
 
 onUpdated(() => {
-  autoScoll()
+  // TabBar 组件有更新，表示最新选中的 tab 有变化，无论是鼠标直接点击 tab 造成的变化，
+  // 还是新打开一个 tab 造成的变化，处理逻辑一致
+  // 最新打开的 tab ，在 tabBarStore.tabKeyList 里的位置
+  // 打开的 tab 连同其左侧的 tab ，总长度
+  const activeTabHtml = document.querySelector("div[data-name='"+ tabBarStore.activeTabKey + "']")
+  const activTabX = activeTabHtml? activeTabHtml.getBoundingClientRect().x : 0;
+  const rightDiff = scrollRightRefX - activTabX
+  const leftDiff = activTabX-scrollLeftRefX
+  if (rightDiff < 200) {
+    scrollToRight()
+  }
+  if (leftDiff < 200) {
+    scrollToLeft()
+  }
 })
 
-function autoScoll() {
-  const scrollRef = tabConent.value?.children[0].children[0].children[0].children[0]
-  const clientWidth = scrollRef?.clientWidth ? scrollRef?.clientWidth : 0
-  const scrollWidth = scrollRef?.scrollWidth ? scrollRef?.scrollWidth : 0
-  if (scrollWidth !== clientWidth) {
-    scrollFlag.value = true
-    scrollRef?.scrollBy({
-      left: 250,
-      behavior: 'smooth'
-    })
-  } else {
-    scrollFlag.value = false
-  }
-}
+const scrollLeftRef = ref<HTMLElement | null>(null)
+const scrollRightRef = ref<HTMLElement | null>(null)
+onMounted(() => {
+  scrollLeftRefX = scrollLeftRef.value? scrollLeftRef.value.getBoundingClientRect().x : 0
+  scrollRightRefX = scrollRightRef.value? scrollRightRef.value.getBoundingClientRect().x : 0
+})
 
+const tabConent = ref<HTMLElement | null>(null)
 function scrollToLeft() {
   tabConent.value?.children[0].children[0].children[0].children[0].scrollBy({
     left: -250,
@@ -62,23 +69,24 @@ function handleClose(menuKey:string) {
       tabBarStore.activeTabKey = leftSublingKey
       handleUpdateValue(leftSublingKey)
     }
+    tabBarStore.tabKeyList.splice(menuKeyIndex, 1)
+    tabBarStore.tabMap.delete(menuKey)
   } else {
     // 从 tabBarStore.tabKeyList 和 tabBarStore.tabMap 删除该 tab
     tabBarStore.tabKeyList.splice(menuKeyIndex, 1)
     tabBarStore.tabMap.delete(menuKey)
-    autoScoll()
   }
 }
 
 </script>
 <template>
   <div class="tab-bar flex items-center justify-between">
-    <div v-if="scrollFlag" class="tab-left hover:cursor-pointer" @click="scrollToLeft">
+    <div ref="scrollLeftRef" class="tab-left hover:cursor-pointer" @click="scrollToLeft">
       <n-icon class=" h-tab-bar w-tab-bar-switch flex items-center justify-center" size="16">
         <ChevronBackOutline />
       </n-icon>
     </div>
-    <div class="tab-content min-w-tab-bar max-w-tab-bar" ref="tabConent">
+    <div class="tab-content min-w-tab-bar" ref="tabConent">
       <n-tabs
         size="small"
         type="card"
@@ -97,7 +105,7 @@ function handleClose(menuKey:string) {
         </n-tab>
     </n-tabs>
     </div>
-    <div v-if="scrollFlag" class="tab-right hover:cursor-pointer" @click="scrollToRight">
+    <div ref="scrollRightRef"  class="tab-right hover:cursor-pointer" @click="scrollToRight">
       <n-icon class=" h-tab-bar w-tab-bar-switch flex items-center justify-center" size="16">
         <ChevronForwardOutline />
       </n-icon>

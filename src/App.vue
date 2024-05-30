@@ -3,7 +3,7 @@ import { type GlobalThemeOverrides } from 'naive-ui'
 
 const themeOverrides: GlobalThemeOverrides = {
   common: {
-      primaryColor: '#004478'
+      // primaryColor: '#18a058'
   },
   Tabs: {
     "tabGapSmallCard": "0",

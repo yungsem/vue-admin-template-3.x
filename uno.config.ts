@@ -11,9 +11,9 @@ export default defineConfig({
     colors: {
       'login': '#222d32',
       'login-card': '#fff',
-      'primary': '#004478',
-      'second-primary': '#005087',
-      'hover': '#1D6F9F'
+      'primary': '#086F3F',
+      'second-primary': '#0C7A43',
+      'hover': '#27955A'
     },
     width: {
       'login-card': '440px',
@@ -23,7 +23,6 @@ export default defineConfig({
     },
     maxWidth: {
       'login-card': '440px',
-      'tab-bar': 'calc(100% - 0px)',
     },
     minWidth: {
       'content': 'calc(100% - 220px)',
