@@ -13,40 +13,39 @@ let scrollLeftRefX = 0
 let scrollRightRefX = 0
 
 onUpdated(() => {
-  // TabBar 组件有更新，表示最新选中的 tab 有变化，无论是鼠标直接点击 tab 造成的变化，
-  // 还是新打开一个 tab 造成的变化，处理逻辑一致
-  // 最新打开的 tab ，在 tabBarStore.tabKeyList 里的位置
-  // 打开的 tab 连同其左侧的 tab ，总长度
   const activeTabHtml = document.querySelector("div[data-name='"+ tabBarStore.activeTabKey + "']")
+  const activeTabWidth = activeTabHtml == null? 0 : activeTabHtml.clientWidth
+  const activTabRight = activeTabHtml? activeTabHtml.getBoundingClientRect().right : 0
   const activTabX = activeTabHtml? activeTabHtml.getBoundingClientRect().x : 0;
-  const rightDiff = scrollRightRefX - activTabX
+  const rightDiff = scrollRightRefX - activTabRight
   const leftDiff = activTabX-scrollLeftRefX
-  if (rightDiff < 200) {
-    scrollToRight()
+
+  if (rightDiff < 30) {
+    scrollToRight(1.8 * activeTabWidth)
   }
-  if (leftDiff < 200) {
-    scrollToLeft()
+  if (leftDiff < 30) {
+    scrollToLeft(1.8 * activeTabWidth)
   }
 })
 
 const scrollLeftRef = ref<HTMLElement | null>(null)
 const scrollRightRef = ref<HTMLElement | null>(null)
 onMounted(() => {
-  scrollLeftRefX = scrollLeftRef.value? scrollLeftRef.value.getBoundingClientRect().x : 0
+  scrollLeftRefX = scrollLeftRef.value? scrollLeftRef.value.getBoundingClientRect().right : 0
   scrollRightRefX = scrollRightRef.value? scrollRightRef.value.getBoundingClientRect().x : 0
 })
 
 const tabConent = ref<HTMLElement | null>(null)
-function scrollToLeft() {
+function scrollToLeft(width : number) {
   tabConent.value?.children[0].children[0].children[0].children[0].scrollBy({
-    left: -250,
+    left: -width,
     behavior: 'smooth'
   })
 }
 
-function scrollToRight() {
+function scrollToRight(width: number) {
   tabConent.value?.children[0].children[0].children[0].children[0].scrollBy({
-    left: 250,
+    left: width,
     behavior: 'smooth'
   })
 }
