@@ -162,7 +162,7 @@ function renderIcon (icon: Component) {
 
 </script>
 <template>
-  <div class="menu">
+  <div class="side-menu">
     <n-layout has-sider>
       <n-layout-sider
           collapse-mode="width"
@@ -170,7 +170,9 @@ function renderIcon (icon: Component) {
           :width="220"
           :collapsed="sideMenuStore.collapsed"
         >
-        <div class="h-top-bar bg-primary"></div>
+        <div class="h-top-bar bg-logo">
+          logo
+        </div>
         <div class="h-menu overflow-y-auto">
           <n-menu
             ref="menuInstRef"

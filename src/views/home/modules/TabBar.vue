@@ -20,10 +20,15 @@ onUpdated(() => {
   const rightDiff = scrollRightRefX - activTabRight
   const leftDiff = activTabX-scrollLeftRefX
 
-  if (rightDiff < 30) {
+  if (rightDiff < 0) {
+    scrollToRight(-rightDiff + 0.8 * activeTabWidth)
+  } else if (rightDiff < 30) {
     scrollToRight(1.8 * activeTabWidth)
   }
-  if (leftDiff < 30) {
+
+  if (leftDiff < 0) {
+    scrollToLeft(-leftDiff + 0.8 * activeTabWidth)
+  } else if (leftDiff < 30) {
     scrollToLeft(1.8 * activeTabWidth)
   }
 })
@@ -80,8 +85,8 @@ function handleClose(menuKey:string) {
 </script>
 <template>
   <div class="tab-bar flex items-center justify-between">
-    <div ref="scrollLeftRef" class="tab-left hover:cursor-pointer" @click="scrollToLeft">
-      <n-icon class=" h-tab-bar w-tab-bar-switch flex items-center justify-center" size="16">
+    <div ref="scrollLeftRef" class="tab-left hover:cursor-pointer" @click="scrollToLeft(250)">
+      <n-icon class=" h-tab-bar w-tab-switch flex items-center justify-center" size="16">
         <ChevronBackOutline />
       </n-icon>
     </div>
@@ -104,8 +109,8 @@ function handleClose(menuKey:string) {
         </n-tab>
     </n-tabs>
     </div>
-    <div ref="scrollRightRef"  class="tab-right hover:cursor-pointer" @click="scrollToRight">
-      <n-icon class=" h-tab-bar w-tab-bar-switch flex items-center justify-center" size="16">
+    <div ref="scrollRightRef"  class="tab-right hover:cursor-pointer" @click="scrollToRight(250)">
+      <n-icon class=" h-tab-bar w-tab-switch flex items-center justify-center" size="16">
         <ChevronForwardOutline />
       </n-icon>
     </div>
@@ -113,8 +118,11 @@ function handleClose(menuKey:string) {
 </template>
 
 <style>
+.tab-left {
+  border-left: 1px solid var(--tab-item-bg-color);
+}
 .tab-right {
-  border-left: 1px solid #f0f2f5;
+  border-left: 1px solid var(--tab-item-bg-color);
 }
 .n-tabs-pad {
   border: 0 !important;
@@ -123,12 +131,12 @@ function handleClose(menuKey:string) {
   min-width: 64px;
   height: 30px;
   border: 0!important;
-  border-left: 1px solid #f0f2f5 !important;
+  border-left: 1px solid var(--tab-item-bg-color)!important;
 }
 .n-tabs-tab:hover {
-  background-color: #f0f2f5 !important;
+  background-color: var(--tab-item-bg-color) !important;
 }
 .n-tabs-tab--active {
-  background-color: #f0f2f5 !important;
+  background-color: var(--tab-item-bg-color) !important;
 }
 </style>

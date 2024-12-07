@@ -1,6 +1,9 @@
 import './assets/main.css'
 import 'uno.css';
 
+// 引入自定义的 CSS 变量
+import "./assets/variable.css"
+
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 

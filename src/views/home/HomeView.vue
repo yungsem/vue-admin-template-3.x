@@ -8,11 +8,10 @@ import ContentWrapper from './modules/ContentWrapper.vue';
 <template>
   <div class="relative w-full h-100vh flex">
     <SideMenu></SideMenu>
-    <div class="flex-grow-1 min-w-content">
-      <TopBar class="h-top-bar bg-second-primary"></TopBar>
-      <TabBar class="h-tab-bar bg-#fff"></TabBar>
-      <ContentWrapper class="h-content-wrapper bg-#f0f2f5">
-      </ContentWrapper>
+    <div class="flex-grow-1 min-w-side-content">
+      <TopBar class="h-top-bar bg-top-bar"></TopBar>
+      <TabBar class="h-tab-bar bg-tab-bar"></TabBar>
+      <ContentWrapper class="h-content-wrapper bg-content-wrapper"></ContentWrapper>
     </div>
   </div>
 </template>

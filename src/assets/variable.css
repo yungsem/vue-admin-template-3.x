@@ -1,6 +1,26 @@
 :root {
-  --login-bg-color: #222d32;
-  --login-card-bg-color: #fff;
-  --login-card-height: 350px;
-  --login-card-width: 440px;
+  --top-bar-height: 40px;
+  --tab-bar-height: 30px;
+
+  --side-menu-width: 220px;
+
+  --menu-switch-width: 40px;
+  --language-switch-width: 40px;
+  --site-switch-width: 100px;
+  --user-switch-width: 100px;
+  --tab-switch-width: 30px;
+
+
+  --top-bar-bg-color: #0C7A43;
+  --top-bar-text-color: #eee;
+  --top-bar-hover-color: #27955A;
+
+  --tab-bar-bg-color: #fff;
+  --tab-item-bg-color: #f0f2f5;
+
+
+  --content-wrapper-bg-color: #f0f2f5;
+  --logo-bg-color: #086F3F;
+
+
 }

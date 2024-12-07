@@ -9,31 +9,32 @@ export default defineConfig({
   ],
   theme: {
     colors: {
-      'login': '#222d32',
-      'login-card': '#fff',
-      'primary': '#086F3F',
-      'second-primary': '#0C7A43',
-      'hover': '#27955A'
+      'top-bar': 'var(--top-bar-bg-color)',
+      'top-bar-t': 'var(--top-bar-text-color)',
+      'top-bar-hover': 'var(--top-bar-hover-color)',
+
+      'tab-bar': 'var(--tab-bar-bg-color)',
+      'content-wrapper': 'var(--content-wrapper-bg-color)',
+      'logo': 'var(--logo-bg-color)',
     },
     width: {
-      'login-card': '440px',
-      'menu': '220px',
-      'menu-switch': '40px',
-      'tab-bar-switch': '30px',
+      'menu-switch': 'var(--menu-switch-width)',
+      'language-switch': 'var(--language-switch-width)',
+      'site-switch': 'var(--site-switch-width)',
+      'user-switch': 'var(--user-switch-width)',
+      'tab-switch': 'var(--tab-switch-width)',
     },
     maxWidth: {
-      'login-card': '440px',
     },
     minWidth: {
-      'content': 'calc(100% - 220px)',
-      'tab-bar': 'calc(100% - 61px)',
+      'side-content': 'calc(100% - var(--side-menu-width))',
+      'tab-bar': 'calc(100% - var(--tab-switch-width)*2 - 1px)',
     },
     height: {
-      'login-card': '350px',
-      'top-bar': '40px',
-      'tab-bar': '30px',
-      'menu': 'calc(100vh - 40px)',
-      'content-wrapper': 'calc(100vh - 70px)'
+      'top-bar': 'var(--top-bar-height)',
+      'tab-bar': 'var(--tab-bar-height)',
+      'menu': 'calc(100vh - var(--top-bar-height))',
+      'content-wrapper': 'calc(100vh - var(--top-bar-height) - var(--tab-bar-height))'
     }
   }
 })

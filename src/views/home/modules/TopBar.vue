@@ -53,7 +53,7 @@ function collapseMenu() {
 <template>
   <div class="top-bar flex items-center justify-between">
     <div class="top-bar-left flex items-center">
-      <div @click="collapseMenu" class="h-top-bar w-menu-switch hover:bg-hover hover:cursor-pointer flex items-center justify-center c-#eee" >
+      <div @click="collapseMenu" class="top-bar-item w-menu-switch flex items-center justify-center" >
         <n-icon size="28">
           <MenuOutline />
         </n-icon>
@@ -61,28 +61,40 @@ function collapseMenu() {
     </div>
     <div class="top-bar-right flex items-center justify-end">
       <n-dropdown trigger="click" :options="langOptions">
-        <div class="h-top-bar w-menu-switch hover:bg-hover hover:cursor-pointer flex items-center justify-center c-#eee">
+        <div class="top-bar-item w-language-switch flex items-center justify-center">
           <n-icon size="18">
             <LanguageOutline />
           </n-icon>
         </div>
       </n-dropdown>
       <n-dropdown trigger="click" :options="siteOptions">
-        <div class="h-top-bar hover:bg-hover hover:cursor-pointer flex items-center justify-center c-#eee pl-10px pr-10px">
-          <span class="mr-6px">苏州01厂</span>
+        <div class="top-bar-item w-site-switch flex items-center justify-center">
+          <span>苏州01厂</span>
           <n-icon size="16">
             <ChevronDownOutline />
           </n-icon>
         </div>
       </n-dropdown>
       <n-dropdown trigger="click" :options="userOptions">
-        <div class="h-top-bar hover:bg-hover hover:cursor-pointer flex items-center justify-center c-#eee pl-10px pr-10px">
+        <div class="top-bar-item w-user-switch flex items-center justify-center">
           <n-icon size="28">
             <PersonCircleOutline />
           </n-icon>
-          <div class="ml-6px">管理员</div>
+          <div>管理员</div>
         </div>
       </n-dropdown>
     </div>
   </div>
 </template>
+<style scoped>
+
+.top-bar-item {
+  height: var(--top-bar-height);
+  color: var(--top-bar-text-color);
+}
+
+.top-bar-item:hover {
+  background-color: var(--top-bar-hover-color);
+  cursor: pointer;
+}
+</style>
